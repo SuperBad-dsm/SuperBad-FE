@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { theme } from "./utils/function/color/constant";
 
-const ThemedComponent = () => {
-
+const App = () => {
   return (
-    <>
-      <View style={styles.container}>
-        <Text style={styles.text}>텍스트 테스트</Text>
-      </View>
-    </>
+    <View style={styles.container}>
+      <Text style={[styles.text, styles.fonts, theme.font.title[40]]}>
+        텍스트 테스트
+      </Text>
+    </View>
   );
 };
 
@@ -18,10 +18,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  fonts: {
+    fontFamily: "Pretendard",
+  },
   text: {
-    fontSize: 18,
     marginBottom: 20,
   },
 });
 
-export default ThemedComponent;
+export default App;
