@@ -75,7 +75,10 @@ export const Login = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <Button onPress={() => {}} disabled={disabled}>
+      <Button
+        onPress={() => navigation.navigate("홈" as never)}
+        disabled={disabled}
+      >
         로그인
       </Button>
     </View>
