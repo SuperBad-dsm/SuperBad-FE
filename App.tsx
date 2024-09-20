@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import ThemedComponent from "@/test";
+
 import * as Font from "expo-font";
 import { Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import MainNavigator from "@/navigation/navigation";
 
 const loadFonts = () => {
   return Font.loadAsync({
@@ -33,7 +35,9 @@ function App() {
   }
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemedComponent />
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
     </QueryClientProvider>
   );
 }

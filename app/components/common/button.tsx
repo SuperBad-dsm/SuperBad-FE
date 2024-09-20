@@ -39,7 +39,7 @@ export default function Button({
         style={[
           styles.text,
           { color: theme.color.black },
-          font.subTitle["20-bold"],
+          font.subTitle["18-medium"],
         ]}
       >
         {children}
@@ -54,5 +54,6 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
+    padding: 8,
   },
 });
