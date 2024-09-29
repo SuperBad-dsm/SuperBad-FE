@@ -25,7 +25,8 @@ export const Signin = () => {
   const disabled =
     !!!data.nickName || !!!data.id || !!!data.password || !!!passwordCheck;
 
-  const isNotMatchPassword = data.password != passwordCheck && passwordCheck.length != 0;
+  const isNotMatchPassword =
+    data.password != passwordCheck && passwordCheck.length != 0;
 
   const handleChange = ({ text, name }: changeEventType) => {
     setData({ ...data, [name]: text });
@@ -116,17 +117,19 @@ export const Signin = () => {
               value={passwordCheck}
               placeholder="비밀번호 재입력"
             />
-            {isNotMatchPassword && <Text
-              style={[
-                font.body["14-medium"],
-                {
-                  color: theme.color.RED,
-                  marginTop: 4,
-                },
-              ]}
-            >
-              비밀번호가 일치하지 않습니다.
-            </Text>}
+            {isNotMatchPassword && (
+              <Text
+                style={[
+                  font.body["14-medium"],
+                  {
+                    color: theme.color.RED,
+                    marginTop: 4,
+                  },
+                ]}
+              >
+                비밀번호가 일치하지 않습니다.
+              </Text>
+            )}
           </View>
         </View>
       </View>
