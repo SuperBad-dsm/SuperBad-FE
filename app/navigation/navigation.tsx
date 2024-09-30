@@ -1,10 +1,8 @@
 import React from "react";
 import * as _ from "@/screen/index";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
 export default function MainNavigator() {
   return (
@@ -14,7 +12,9 @@ export default function MainNavigator() {
         component={_.Login}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="회원가입" component={_.Signin} />
+      <Stack.Screen name="회원가입" component={_.Signin} options={{
+        headerShown:false
+      }}/>
     </Stack.Navigator>
   );
 }
