@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { setPositionAsync } from "expo-navigation-bar";
 import React, { ChangeEvent, useState } from "react";
 import { Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export type changeEventType = {
@@ -52,7 +53,9 @@ export const Signin = () => {
             paddingVertical: 22,
           }}
         >
-          <BackIcon />
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <BackIcon />
+          </TouchableOpacity>
         </View>
         <View
           style={{
