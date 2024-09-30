@@ -3,11 +3,9 @@ import Button from "@/components/common/button";
 import Input from "@/components/common/input";
 import { font, theme } from "@/utils/function/color/constant";
 import { useNavigation } from "@react-navigation/native";
-import { setPositionAsync } from "expo-navigation-bar";
 import React, { ChangeEvent, useState } from "react";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export type changeEventType = {
   text: string;
@@ -27,7 +25,7 @@ export const Signin = () => {
     !!!data.nickName || !!!data.id || !!!data.password || !!!passwordCheck;
 
   const isNotMatchPassword =
-    data.password != passwordCheck && passwordCheck.length != 0;
+    data.password !== passwordCheck && passwordCheck.length !== 0;
 
   const handleChange = ({ text, name }: changeEventType) => {
     setData({ ...data, [name]: text });
