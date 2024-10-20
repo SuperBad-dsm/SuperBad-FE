@@ -5,6 +5,7 @@ import * as Font from "expo-font";
 import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "@/navigation/navigation";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const loadFonts = () => {
   return Font.loadAsync({
@@ -36,7 +37,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
-        <MainNavigator />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <MainNavigator />
+        </GestureHandlerRootView>
       </NavigationContainer>
     </QueryClientProvider>
   );
