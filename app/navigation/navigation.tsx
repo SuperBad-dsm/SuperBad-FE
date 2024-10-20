@@ -23,7 +23,7 @@ export default function MainNavigator() {
           paddingHorizontal: 32,
           paddingVertical: 8,
           height: 70,
-          paddingBottom: 5,
+          paddingBottom: 6,
         },
       }}
     >
