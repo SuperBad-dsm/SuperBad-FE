@@ -15,6 +15,8 @@ export { default as Goods } from "./goods";
 export { default as Roulette } from "./roulette";
 export { default as Store } from "./store";
 export { default as Window } from "./window";
+export { default as SmallLightning } from "./SmallLightning";
+export { default as SlidePng } from "./slide.png";
 
 export interface IconProps {
   OnPress?: () => void;

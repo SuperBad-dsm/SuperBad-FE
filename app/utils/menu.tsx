@@ -9,8 +9,8 @@ import {
   Dice,
   Dollar,
   Goods,
-  LightningIcon,
   Roulette,
+  SmallLightning,
   Store,
 } from "@/assets/icons";
 import Chat from "@/assets/icons/chat";
@@ -24,7 +24,7 @@ export const MenuList: MenuType[] = [
   {
     name: "추천상품",
     to: "추천",
-    icon: <LightningIcon />,
+    icon: <SmallLightning />,
   },
   {
     name: "무료나눔",
@@ -50,7 +50,7 @@ export const MenuList: MenuType[] = [
   {
     name: "채팅",
     to: "채팅",
-    icon: <Chat />,
+    icon: <Chat Fill={theme.color.white} />,
   },
   {
     name: "내 상점",
