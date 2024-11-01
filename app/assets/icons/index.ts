@@ -17,6 +17,8 @@ export { default as Store } from "./store";
 export { default as Window } from "./window";
 export { default as SmallLightning } from "./SmallLightning";
 export { default as SlidePng } from "./slide.png";
+export { default as XIcon } from "./x";
+export { default as Camera } from "./Camera";
 
 export interface IconProps {
   OnPress?: () => void;

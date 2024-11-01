@@ -69,7 +69,7 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="상품"
-        component={_.Product}
+        component={_.Home}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -91,7 +91,7 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="등록"
-        component={_.Signin}
+        component={_.Registration}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (

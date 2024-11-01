@@ -3,6 +3,7 @@ import { font, theme } from "@/utils/function/color/constant";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import ProductImg from "@/assets/tws.png";
 
 interface ListProp {
   img: string;
@@ -15,12 +16,7 @@ export default function List({ img, title, date, price }: ListProp) {
   return (
     <TouchableOpacity style={[styles.container]}>
       <View style={{ gap: 15, flexDirection: "row" }}>
-        <Image
-          source={{ uri: img }}
-          borderRadius={8}
-          width={110}
-          height={110}
-        />
+        <Image source={ProductImg} borderRadius={8} width={110} height={110} />
         <View style={styles.textWrap}>
           <Text
             style={[

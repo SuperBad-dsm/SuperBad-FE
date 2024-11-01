@@ -34,7 +34,7 @@ export default function Input({
   const [active, setActive] = useState<boolean>(false);
   const [visible, setVisible] = useState(false);
   return (
-    <View style={{ gap: 4, backgroundColor: theme.color.black }}>
+    <View style={{ gap: 4 }}>
       {label && (
         <Text style={[font.body["16-semibold"], { color: theme.color.white }]}>
           {label}
@@ -44,7 +44,6 @@ export default function Input({
         style={[
           style.container,
           {
-            backgroundColor: theme.color.black,
             borderColor: theme.color.GRAY[100],
             borderBottomWidth: 1,
           },

@@ -16,9 +16,9 @@
     "android": {
       "versionCode": 7,
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.parkhyuna.SuperBad"
     },
     "packagerOpts": {
       "config": "metro.config.js",
@@ -38,7 +38,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "342bfabd-2278-47bd-9ac9-a10c9042ccb3"
+        "projectId": "e10de8d8-7431-4133-b360-48dac6eea30f"
       }
     }
   }
