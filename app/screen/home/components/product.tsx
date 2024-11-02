@@ -1,3 +1,4 @@
+import { TwsPng } from "@/assets/icons";
 import { font, theme } from "@/utils/function/color/constant";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -13,7 +14,7 @@ export default function Product({ img, price, content }: ProductProps) {
   return (
     <TouchableOpacity style={styles.container}>
       <Image
-        source={{ uri: img }}
+        source={TwsPng}
         width={115}
         height={135}
         borderRadius={8}
