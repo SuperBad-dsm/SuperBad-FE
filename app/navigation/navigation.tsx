@@ -69,7 +69,7 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="상품"
-        component={_.Home}
+        component={_.Product}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
