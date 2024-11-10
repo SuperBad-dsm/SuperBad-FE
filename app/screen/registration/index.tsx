@@ -7,6 +7,7 @@ import { Pressable, TouchableOpacity } from "react-native-gesture-handler";
 import Input from "@/components/common/input";
 import ClassButton from "./components/option";
 import { CategoryData } from "@/utils/category";
+import Button from "@/components/common/button";
 
 export const Registration = () => {
   const [selected, setSelected] = useState<{ text: string | undefined }>({
@@ -63,16 +64,30 @@ export const Registration = () => {
       </Pressable>
       <Input onChange={() => {}} placeholder="상품명" />
       <Input onChange={() => {}} placeholder="가격" />
-      <View>
-        <Text>카테고리</Text>
-        {CategoryData.map((item) => (
-          <ClassButton
-            selected={selected}
-            setSelected={setSelected}
-            item={item}
-          />
-        ))}
+      <View style={{ gap: 10 }}>
+        <Text
+          style={[font.subTitle["18-semibold"], { color: theme.color.white }]}
+        >
+          카테고리
+        </Text>
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          {CategoryData.map((item) => (
+            <ClassButton
+              selected={selected}
+              setSelected={setSelected}
+              item={item}
+            />
+          ))}
+        </View>
       </View>
+
+      <Input
+        onChange={() => {}}
+        placeholder="브랜드, 모델명, 상품 구매 시기, 하자 유무 등을 적어주시면 
+판매가 더욱 쉬워져요."
+        multiLine={8}
+      />
+      <Button onPress={() => {}}>상품등록</Button>
     </SafeAreaView>
   );
 };
@@ -84,6 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.backgroundblack,
     paddingHorizontal: 32,
     paddingVertical: 24,
+    gap: 20,
   },
   imgContainer: {
     backgroundColor: theme.color.GRAY[700],

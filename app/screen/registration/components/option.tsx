@@ -17,6 +17,7 @@ export default function ClassButton({ selected, setSelected, item }: PropType) {
   const { text: className } = selected;
   return (
     <TouchableWithoutFeedback
+      style={[{ width: 100 }]}
       onPress={() => {
         setSelected({
           ...selected,
@@ -29,15 +30,18 @@ export default function ClassButton({ selected, setSelected, item }: PropType) {
           styles.container,
           {
             backgroundColor:
-              className === item
-                ? theme.color.GRAY[100]
-                : theme.color.backgroundblack,
+              className === item ? "#FFEC3E16" : theme.color.GRAY[700],
             borderColor:
-              className === item ? theme.color.YELLOW : theme.color.RED,
+              className === item ? theme.color.YELLOW : theme.color.GRAY[500],
           },
         ]}
       >
-        <Text style={{ color: theme.color.black, textAlign: "center" }}>
+        <Text
+          style={{
+            color: className === item ? theme.color.YELLOW : theme.color.white,
+            textAlign: "center",
+          }}
+        >
           {item}
         </Text>
       </View>
