@@ -8,7 +8,7 @@ interface ListProp {
   img: string;
   title: string;
   date: string;
-  price: string;
+  price: number;
 }
 
 export default function List({ img, title, date, price }: ListProp) {
