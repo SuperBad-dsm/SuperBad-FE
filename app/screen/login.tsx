@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-import { loginInstance } from "@/utils/function/api/instance";
+import { instance, loginInstance } from "@/utils/function/api/instance";
 import { path } from "@/constants";
 import { AxiosError, AxiosResponse } from "axios";
 import { setToken, setUserId } from "@/utils";
@@ -19,29 +19,33 @@ export type changeEventType = {
 export const Login = () => {
   const navigation = useNavigation();
   const [data, setData] = useState({
-    user_id: "",
+    userId: "",
     password: "",
   });
   const [error, setError] = useState<boolean>(false);
 
-  const disabled = !!!data.user_id || !!!data.password;
+  const disabled = !!!data.userId || !!!data.password;
 
   const handleChange = ({ text, name }: changeEventType) => {
     setData({ ...data, [name]: text });
   };
 
   const { mutate: loginFn } = useMutation<AxiosResponse, AxiosError>({
-    mutationFn: () => loginInstance.post(`${path.auth}/login`, data),
+    mutationFn: () => instance.post(`${path.auth}/login`, data),
     onError: (error) => {
       setError(true);
-      console.log(error.message);
+      console.log(error);
     },
     onSuccess: async (res) => {
-      const { access_token } = res.data;
-      await setToken(access_token, Object.values(data), "");
-      setUserId(data.user_id);
-      console.log(data);
-      navigation.navigate("홈" as never);
+      const { token } = res.data;
+
+      if (token) {
+        await setToken(token, Object.values(data), "");
+        setUserId(data.userId);
+        navigation.navigate("홈" as never);
+      } else {
+        console.log("Error: Access token is undefined.");
+      }
     },
   });
 
@@ -61,9 +65,9 @@ export const Login = () => {
         </View>
         <Input
           onChange={handleChange}
-          name="user_id"
+          name="userId"
           label="아이디"
-          value={data.user_id}
+          value={data.userId}
           placeholder="아이디 (6~12)"
         />
         <Input
