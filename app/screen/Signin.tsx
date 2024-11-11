@@ -20,13 +20,13 @@ export const Signin = () => {
   const navigation = useNavigation();
   const [data, setData] = useState({
     nickname: "",
-    user_id: "",
+    userId: "",
     password: "",
   });
   const [passwordCheck, setPasswordCheck] = useState<string>("");
 
   const disabled =
-    !!!data.nickname || !!!data.user_id || !!!data.password || !!!passwordCheck;
+    !!!data.nickname || !!!data.userId || !!!data.password || !!!passwordCheck;
 
   const isNotMatchPassword =
     data.password !== passwordCheck && passwordCheck.length !== 0;
@@ -111,9 +111,9 @@ export const Signin = () => {
           />
           <Input
             onChange={handleChange}
-            name="user_id"
+            name="userId"
             label="아이디"
-            value={data.user_id}
+            value={data.userId}
             placeholder="아이디 (6~12)"
           />
           <Input
