@@ -135,7 +135,7 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="MY"
-        component={_.Signin}
+        component={_.ProductDetail}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
