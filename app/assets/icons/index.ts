@@ -21,6 +21,7 @@ export { default as XIcon } from "./x";
 export { default as Camera } from "./Camera";
 export { default as Heart } from "./heart";
 export { default as HeartFill } from './heartFill'
+export { default as TwsPng } from "./tws.png";
 
 export interface IconProps {
   OnPress?: () => void;

@@ -1,3 +1,4 @@
+import { TwsPng } from "@/assets/icons";
 import { font, theme } from "@/utils/function/color/constant";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -5,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface ProductProps {
   img: string;
-  price: string;
+  price: number;
   content: string;
 }
 
@@ -19,7 +20,7 @@ export default function Product({ img, price, content }: ProductProps) {
         borderRadius={8}
         alt="이미지없음"
       />
-      <Text style={[font.body["14-semibold"]]}>{price}</Text>
+      <Text style={[font.body["14-semibold"]]}>{price}원</Text>
       <Text style={[font.body["14-medium"], { color: theme.color.GRAY[500] }]}>
         {content}
       </Text>

@@ -5,6 +5,11 @@ import { font, theme } from "@/utils/function/color/constant";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useMutation } from "@tanstack/react-query";
+import { instance, loginInstance } from "@/utils/function/api/instance";
+import { path } from "@/constants";
+import { AxiosError, AxiosResponse } from "axios";
+import { setToken, setUserId } from "@/utils";
 
 export type changeEventType = {
   text: string;
@@ -14,15 +19,35 @@ export type changeEventType = {
 export const Login = () => {
   const navigation = useNavigation();
   const [data, setData] = useState({
-    id: "",
+    userId: "",
     password: "",
   });
+  const [error, setError] = useState<boolean>(false);
 
-  const disabled = !!!data.id || !!!data.password;
+  const disabled = !!!data.userId || !!!data.password;
 
   const handleChange = ({ text, name }: changeEventType) => {
     setData({ ...data, [name]: text });
   };
+
+  const { mutate: loginFn } = useMutation<AxiosResponse, AxiosError>({
+    mutationFn: () => instance.post(`${path.auth}/login`, data),
+    onError: (error) => {
+      setError(true);
+      console.log(error);
+    },
+    onSuccess: async (res) => {
+      const { token } = res.data;
+
+      if (token) {
+        await setToken(token, Object.values(data), "");
+        setUserId(data.userId);
+        navigation.navigate("홈" as never);
+      } else {
+        console.log("Error: Access token is undefined.");
+      }
+    },
+  });
 
   return (
     <View
@@ -40,9 +65,9 @@ export const Login = () => {
         </View>
         <Input
           onChange={handleChange}
-          name="id"
+          name="userId"
           label="아이디"
-          value={data.id}
+          value={data.userId}
           placeholder="아이디 (6~12)"
         />
         <Input
@@ -75,10 +100,7 @@ export const Login = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <Button
-        onPress={() => navigation.navigate("홈" as never)}
-        disabled={disabled}
-      >
+      <Button onPress={loginFn as any} disabled={disabled}>
         로그인
       </Button>
     </View>

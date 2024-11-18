@@ -1,8 +1,12 @@
 import { BackIcon } from "@/assets/icons";
 import Button from "@/components/common/button";
 import Input from "@/components/common/input";
+import { path } from "@/constants";
+import { instance, loginInstance } from "@/utils/function/api/instance";
 import { font, theme } from "@/utils/function/color/constant";
 import { useNavigation } from "@react-navigation/native";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError, AxiosResponse } from "axios";
 import React, { ChangeEvent, useState } from "react";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -15,14 +19,14 @@ export type changeEventType = {
 export const Signin = () => {
   const navigation = useNavigation();
   const [data, setData] = useState({
-    nickName: "",
-    id: "",
+    nickname: "",
+    userId: "",
     password: "",
   });
   const [passwordCheck, setPasswordCheck] = useState<string>("");
 
   const disabled =
-    !!!data.nickName || !!!data.id || !!!data.password || !!!passwordCheck;
+    !!!data.nickname || !!!data.userId || !!!data.password || !!!passwordCheck;
 
   const isNotMatchPassword =
     data.password !== passwordCheck && passwordCheck.length !== 0;
@@ -34,6 +38,17 @@ export const Signin = () => {
   const handlePasswordCheckChange = ({ name, text }: changeEventType) => {
     setPasswordCheck(text);
   };
+
+  const { mutate: SignFn } = useMutation<AxiosResponse, AxiosError>({
+    mutationFn: () => instance.post(`${path.auth}/signup`, data),
+    onError: (error) => {
+      console.log(error.message);
+    },
+    onSuccess: async (res) => {
+      console.log(data);
+      navigation.navigate("로그인" as never);
+    },
+  });
 
   return (
     <View
@@ -89,16 +104,16 @@ export const Signin = () => {
         >
           <Input
             onChange={handleChange}
-            name="nickName"
+            name="nickname"
             label="닉네임"
-            value={data.nickName}
+            value={data.nickname}
             placeholder="닉네임 (2~8)"
           />
           <Input
             onChange={handleChange}
-            name="id"
+            name="userId"
             label="아이디"
-            value={data.id}
+            value={data.userId}
             placeholder="아이디 (6~12)"
           />
           <Input
@@ -134,10 +149,7 @@ export const Signin = () => {
           </View>
         </View>
       </View>
-      <Button
-        onPress={() => navigation.navigate("홈" as never)}
-        disabled={disabled}
-      >
+      <Button onPress={SignFn as any} disabled={disabled}>
         회원가입
       </Button>
     </View>
