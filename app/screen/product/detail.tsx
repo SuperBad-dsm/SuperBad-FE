@@ -5,9 +5,7 @@ import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Heart, HeartFill, LightningIcon, SlidePng } from "@/assets/icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import Button from "@/components/common/button";
-import {
-  TouchableOpacity,
-} from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const ProductDetail = () => {
   const [isLike, setIsLike] = useState<boolean>(false);
@@ -178,12 +176,12 @@ export const ProductDetail = () => {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity
-        onPress={() => setIsLike(!isLike)}
-        >
-          {
-            isLike ? (<Heart Fill={theme.color.GRAY[600]}/>) : (<HeartFill Fill={theme.color.YELLOW} />)
-          }
+        <TouchableOpacity onPress={() => setIsLike(!isLike)}>
+          {isLike ? (
+            <Heart Fill={theme.color.GRAY[600]} />
+          ) : (
+            <HeartFill Fill={theme.color.YELLOW} />
+          )}
         </TouchableOpacity>
         <View
           style={{
@@ -192,9 +190,7 @@ export const ProductDetail = () => {
             backgroundColor: theme.color.GRAY[700],
             marginStart: 28,
           }}
-        >
-
-        </View>
+        ></View>
         <View
           style={{
             flexDirection: "column",
