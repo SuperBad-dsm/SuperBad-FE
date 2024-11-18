@@ -3,8 +3,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Product from "./product";
 import { ScrollView } from "react-native-gesture-handler";
+import { useGetProductList } from "@/apis/product";
 
 export const Recommend = () => {
+  const { data: ProductList } = useGetProductList();
   return (
     <ScrollView style={[styles.container]}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -16,36 +18,13 @@ export const Recommend = () => {
         </Text>
       </View>
       <View style={styles.recommendStyle}>
-        <Product
-          img="d"
-          price="10000원"
-          content="[미개봉] 투어스 앨범
-  급처"
-        />
-        <Product
-          img="d"
-          price="10000원"
-          content="[미개봉] 투어스 앨범
-  급처"
-        />
-        <Product
-          img="d"
-          price="10000원"
-          content="[미개봉] 투어스 앨범
-  급처"
-        />
-        <Product
-          img="d"
-          price="10000원"
-          content="[미개봉] 투어스 앨범
-  급처"
-        />
-        <Product
-          img="d"
-          price="10000원"
-          content="[미개봉] 투어스 앨범
-  급처"
-        />
+        {ProductList?.map((item) => (
+          <Product
+            img={item.imageUrl}
+            price={item.price}
+            content={item.title}
+          />
+        ))}
       </View>
     </ScrollView>
   );

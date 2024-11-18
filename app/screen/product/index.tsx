@@ -5,8 +5,10 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import List from "./components/list";
+import { useGetProductList } from "@/apis/product";
 
 export const Product = () => {
+  const { data: ProductList } = useGetProductList();
   return (
     <View style={[styles.container]}>
       <Header />
@@ -26,12 +28,14 @@ export const Product = () => {
         selected={"/recommend"}
       />
       <ScrollView>
-        <List img="ㅇㅍ홈" title="ergnrenrej" date="2024-04-05" price="10000" />
-        <List img="ㅇㅍ홈" title="ergnrenrej" date="2024-04-05" price="10000" />
-        <List img="ㅇㅍ홈" title="ergnrenrej" date="2024-04-05" price="10000" />
-        <List img="ㅇㅍ홈" title="ergnrenrej" date="2024-04-05" price="10000" />
-        <List img="ㅇㅍ홈" title="ergnrenrej" date="2024-04-05" price="10000" />
-        <List img="ㅇㅍ홈" title="ergnrenrej" date="2024-04-05" price="10000" />
+        {ProductList?.map((item) => (
+          <List
+            img={item.imageUrl}
+            title={item.title}
+            date={item.createdDate.slice(0, 10)}
+            price={item.price}
+          />
+        ))}
       </ScrollView>
     </View>
   );
