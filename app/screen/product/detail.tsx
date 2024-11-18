@@ -182,8 +182,7 @@ export const ProductDetail = () => {
         onPress={() => setIsLike(!isLike)}
         >
           {
-            <Heart Fill={theme.color.GRAY[600]}/>
-            //isLike ? (<Heart Fill={theme.color.GRAY[600]}/>) : (<HeartFill Fill={theme.color.YELLOW} />)
+            isLike ? (<Heart Fill={theme.color.GRAY[600]}/>) : (<HeartFill Fill={theme.color.YELLOW} />)
           }
         </TouchableOpacity>
         <View
