@@ -1,7 +1,8 @@
-import { Product } from "@/@types/type";
+import { PostProductType, Product } from "@/@types/type";
 import { path } from "@/constants";
+import { getEnumCategory } from "@/hooks";
 import { instance } from "@/utils/function/api/instance";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useGetProductList = () => {
   return useQuery({
@@ -9,6 +10,35 @@ export const useGetProductList = () => {
     queryFn: async () => {
       const { data } = await instance.get<Product[]>(`${path.products}`);
       return data;
+    },
+  });
+};
+
+export const usePostProduct = () => {
+  return useMutation({
+    mutationFn: async (param: PostProductType) => {
+      const formData = new FormData();
+      formData.append("title", param.title);
+      formData.append("content", param.content);
+      formData.append("price", param.price);
+      formData.append("category", param.category || "");
+
+      if (param.image) {
+        // Append the Blob to FormData
+        formData.append("image", param.image, "image.jpg"); // You can use the file name
+      }
+
+      console.log(param.image);
+
+      await instance.post(`${path.products}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    },
+    onSuccess: () => {
+      console.log("성공");
+    },
+    onError: (error) => {
+      console.log(error);
     },
   });
 };
