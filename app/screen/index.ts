@@ -3,3 +3,4 @@ export { Signin } from "./Signin";
 export { Home } from "./home/index";
 export { Product } from "./product/index";
 export { Registration } from "./registration/index";
+export { ProductDetail } from "./product/detail"

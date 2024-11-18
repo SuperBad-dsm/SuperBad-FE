@@ -61,7 +61,7 @@ export const Login = () => {
     >
       <View style={{ gap: 32 }}>
         <View style={{ padding: 80, alignItems: "center" }}>
-          <LightningIcon />
+          <LightningIcon width={40} height={49} />
         </View>
         <Input
           onChange={handleChange}
