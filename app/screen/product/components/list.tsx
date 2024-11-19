@@ -53,7 +53,7 @@ export default function List({ img, title, date, price }: ListProp) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingVertical: 32,
+    paddingVertical: 12,
     paddingHorizontal: 12,
     color: theme.color.white,
     flexDirection: "row",

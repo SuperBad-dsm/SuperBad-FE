@@ -20,6 +20,8 @@ export const Recommend = () => {
       <View style={styles.recommendStyle}>
         {ProductList?.map((item) => (
           <Product
+            id={item.id}
+            key={item.id}
             img={item.imageUrl}
             price={item.price}
             content={item.title}
@@ -42,7 +44,9 @@ const styles = StyleSheet.create({
   recommendStyle: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     rowGap: 20,
+    gap: 1,
+    marginBottom: 50,
   },
 });

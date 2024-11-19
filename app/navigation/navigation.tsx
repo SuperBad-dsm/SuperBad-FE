@@ -10,6 +10,7 @@ import Cart from "@/assets/icons/cart";
 import Plus from "@/assets/icons/plus";
 import Chat from "@/assets/icons/chat";
 import Prople from "@/assets/icons/people";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -17,14 +18,17 @@ const Tab = createBottomTabNavigator();
 export default function MainNavigator() {
   return (
     <Tab.Navigator
-      screenOptions={{
-        tabBarStyle: {
-          backgroundColor: "#fff",
-          paddingHorizontal: 32,
-          paddingVertical: 8,
-          height: 70,
-          paddingBottom: 6,
-        },
+      screenOptions={({ route }) => {
+        const routeName = getFocusedRouteNameFromRoute(route) ?? route.name;
+        return {
+          tabBarStyle: {
+            backgroundColor: routeName === "홈" ? "#fff" : "#000",
+            paddingHorizontal: 32,
+            paddingVertical: 8,
+            height: 70,
+            paddingBottom: 6,
+          },
+        };
       }}
     >
       <Tab.Screen
@@ -46,6 +50,17 @@ export default function MainNavigator() {
         }}
       />
       <Tab.Screen
+        name="상품상세"
+        component={_.}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="홈"
+        component={_.Home}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -64,8 +79,6 @@ export default function MainNavigator() {
             </Text>
           ),
         }}
-        component={_.Home}
-        name="홈"
       />
       <Tab.Screen
         name="상품"
@@ -73,13 +86,13 @@ export default function MainNavigator() {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Cart Fill={focused ? theme.color.black : theme.color.GRAY[300]} />
+            <Cart Fill={focused ? theme.color.YELLOW : theme.color.GRAY[300]} />
           ),
           tabBarLabel: ({ focused }) => (
             <Text
               style={[
                 {
-                  color: focused ? theme.color.black : theme.color.GRAY[300],
+                  color: focused ? theme.color.YELLOW : theme.color.GRAY[300],
                 },
                 font.body["14-medium"],
               ]}
@@ -95,13 +108,13 @@ export default function MainNavigator() {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Plus Fill={focused ? theme.color.black : theme.color.GRAY[300]} />
+            <Plus Fill={focused ? theme.color.YELLOW : theme.color.GRAY[300]} />
           ),
           tabBarLabel: ({ focused }) => (
             <Text
               style={[
                 {
-                  color: focused ? theme.color.black : theme.color.GRAY[300],
+                  color: focused ? theme.color.YELLOW : theme.color.GRAY[300],
                 },
                 font.body["14-medium"],
               ]}
@@ -113,17 +126,17 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="슈퍼챗"
-        component={_.Signin}
+        component={_.SuperChat}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <Chat Fill={focused ? theme.color.black : theme.color.GRAY[300]} />
+            <Chat Fill={focused ? theme.color.YELLOW : theme.color.GRAY[300]} />
           ),
           tabBarLabel: ({ focused }) => (
             <Text
               style={[
                 {
-                  color: focused ? theme.color.black : theme.color.GRAY[300],
+                  color: focused ? theme.color.YELLOW : theme.color.GRAY[300],
                 },
                 font.body["14-medium"],
               ]}
@@ -135,19 +148,19 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="MY"
-        component={_.ProductDetail}
+        component={_.MyPage}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Prople
-              Fill={focused ? theme.color.black : theme.color.GRAY[300]}
+              Fill={focused ? theme.color.YELLOW : theme.color.GRAY[300]}
             />
           ),
           tabBarLabel: ({ focused }) => (
             <Text
               style={[
                 {
-                  color: focused ? theme.color.black : theme.color.GRAY[300],
+                  color: focused ? theme.color.YELLOW : theme.color.GRAY[300],
                 },
                 font.body["14-medium"],
               ]}

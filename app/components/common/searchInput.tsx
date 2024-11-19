@@ -1,7 +1,8 @@
 import { SearchIcon } from "@/assets/icons";
-import { theme } from "@/utils/function/color/constant";
+import { font, theme } from "@/utils/function/color/constant";
 import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View, Text } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export type changeEventType = {
   text: string;
@@ -12,12 +13,16 @@ interface InputProps {
   value?: string;
   onChange: ({ text, name }: changeEventType) => void;
   name?: string;
+  onClick?: () => void;
+  type?: "send";
 }
 
 export default function SearchInput({
   name = "",
   onChange,
   value,
+  onClick,
+  type,
 }: InputProps) {
   return (
     <View style={[styles.container]}>
@@ -26,7 +31,16 @@ export default function SearchInput({
         value={value}
         onChangeText={(text) => onChange({ text, name })}
       />
-      <SearchIcon Fill={theme.color.YELLOW} />
+      {type === "send" ? (
+        <Text
+          style={[font.subTitle["18-medium"], { color: theme.color.YELLOW }]}
+          onPress={onClick}
+        >
+          보내기
+        </Text>
+      ) : (
+        <SearchIcon Fill={theme.color.YELLOW} />
+      )}
     </View>
   );
 }
@@ -44,6 +58,7 @@ const styles = StyleSheet.create({
     height: 48,
     gap: 8,
     justifyContent: "space-between",
+    alignItems: "center",
   },
   input: {
     color: theme.color.white,
