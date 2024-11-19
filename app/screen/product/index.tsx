@@ -1,18 +1,33 @@
 import Header from "@/components/common/header";
 import SegmentedControl from "@/components/common/seg";
 import { theme } from "@/utils/function/color/constant";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import List from "./components/list";
 import { useGetProductList } from "@/apis/product";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+type changeEventType = {
+  text: string;
+  name: string;
+};
+
 export const Product = () => {
   const { data: ProductList } = useGetProductList();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = ({ text }: changeEventType) => {
+    setSearchQuery(text.toLowerCase());
+  };
+
+  const filteredProductList = ProductList?.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery)
+  );
+
   return (
     <SafeAreaView style={[styles.container]}>
-      <Header />
+      <Header searchChange={handleSearchChange} />
       <SegmentedControl
         list={[
           { text: "추천", link: "recommend", path: "/recommend" },
@@ -29,7 +44,7 @@ export const Product = () => {
         selected={"/recommend"}
       />
       <ScrollView>
-        {ProductList?.map((item) => (
+        {filteredProductList?.map((item) => (
           <List
             id={item.id}
             key={item.id}
