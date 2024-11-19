@@ -23,12 +23,11 @@ export const usePostProduct = () => {
       formData.append("price", param.price);
       formData.append("category", param.category || "");
 
-      if (param.image) {
-        // Append the Blob to FormData
-        formData.append("image", param.image, "image.jpg"); // You can use the file name
+      if (param.imageUri) {
+        formData.append("image", param.imageUri, "image.jpg");
       }
 
-      console.log(param.image);
+      console.log(param.imageUri);
 
       await instance.post(`${path.products}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },

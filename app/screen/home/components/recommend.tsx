@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
   recommendStyle: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     rowGap: 20,
+    gap: 1,
+    marginBottom: 50,
   },
 });

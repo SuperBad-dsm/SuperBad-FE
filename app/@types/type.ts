@@ -35,5 +35,5 @@ export interface PostProductType {
   content: string;
   price: string;
   category: string | undefined;
-  image: File | undefined;
+  imageUri: File | undefined;
 }

@@ -17,7 +17,7 @@ export type PostProductType = {
   content: string;
   price: string;
   category: ProductEnum | undefined;
-  image: File | undefined;
+  imageUri: File | undefined;
 };
 
 export type changeEventType = {
@@ -94,7 +94,7 @@ export const Registration = () => {
       content: data.content,
       price: data.price,
       category: getEnumCategory(selected.text),
-      image: imageUrls[0] ? (imageUrls[0] as any) : undefined, // Cast to any temporarily
+      imageUri: imageUrls[0] ? (imageUrls[0] as any) : undefined,
     };
     postProduct(formData);
   };
