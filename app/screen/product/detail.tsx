@@ -6,9 +6,59 @@ import { Heart, HeartFill, LightningIcon, SlidePng } from "@/assets/icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import Button from "@/components/common/button";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError, AxiosResponse } from "axios";
+import { instance } from "@/utils/function/api/instance";
+import { path } from "@/constants";
+import { Product } from "@/@types/type";
+import { useRoute } from "@react-navigation/native";
+import { RouteProp } from '@react-navigation/native';
+
+
+interface DetailProp {
+  id: number
+}
+type DetailParam = {
+  ProductDetail: {
+    id: number;
+  };
+};
+
+//type Navigation = NativeStackHeaderProps & DetailParams;
 
 export const ProductDetail = () => {
+  //const route = useRoute<RouteProp<DetailParam, 'ProductDetail'>>();
+    //const { id } = route.params;
+
   const [isLike, setIsLike] = useState<boolean>(false);
+
+  const [error, setError] = useState<boolean>(false);
+
+  const [data, setData] = useState<Product>();
+
+  const getDetailData = () => {    
+    return useMutation({
+      mutationFn: () => instance.get<Product>(`${path.products}/1`),
+      onError: (error) => {
+        console.log(error);
+      },
+      onSuccess: async (res) => {
+        setData(res.data);
+      },
+    });
+  };
+
+  const { mutate: detailFn } = useMutation<AxiosResponse, AxiosError>({
+    mutationFn: () => instance.get(`${path.products}/1`),
+    onError: (error) => {
+      setError(true);
+      console.log(error);
+    },
+    onSuccess: async (res) => {
+      const { token } = res.data;
+    }
+    
+  })
 
   return (
     <View
@@ -51,7 +101,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            이나경
+            {data?.seller.nickname}
           </Text>
           <Text
             style={[
@@ -61,7 +111,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            chojang0124
+            {data?.seller.userId}
           </Text>
         </View>
         <View
@@ -77,7 +127,7 @@ export const ProductDetail = () => {
             },
           ]}
         >
-          2024-08-19
+          {data?.createdDate}
         </Text>
       </View>
       <View
@@ -108,7 +158,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            보노보노 혁명전차
+            {data?.title}
           </Text>
           <Text
             style={[
@@ -119,7 +169,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            판매중
+            {data?.status}
           </Text>
         </View>
         <View
@@ -135,7 +185,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            가전제품
+            {data?.category}
           </Text>
           <Text
             style={[
@@ -145,7 +195,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            15
+            {data?.heartCount}
           </Text>
         </View>
         <Text
@@ -157,8 +207,7 @@ export const ProductDetail = () => {
             },
           ]}
         >
-          원은지가 오송주를 제압할 때 사용했던 혁명전차입니다. 사용감 좀
-          있으니까 예민하신분은 다른 매물 알아봐주세요.네고 불가능합니다.
+          {data?.content}
         </Text>
       </View>
       <View
@@ -205,7 +254,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            20,000,000원
+            {data?.price}원
           </Text>
           <Text
             style={[

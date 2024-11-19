@@ -3,17 +3,23 @@ import { font, theme } from "@/utils/function/color/constant";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 interface ListProp {
+  id: number,
   img: string;
   title: string;
   date: string;
   price: number;
 }
 
-export default function List({ img, title, date, price }: ListProp) {
+export default function List({ id, img, title, date, price }: ListProp) {
+    const navigation = useNavigation();
+
   return (
-    <TouchableOpacity style={[styles.container]}>
+    <TouchableOpacity 
+    onPress={() => navigation.navigate('상세보기' as never)}
+    style={[styles.container]}>
       <View style={{ gap: 15, flexDirection: "row" }}>
         <Image
           source={{ uri: img }}
