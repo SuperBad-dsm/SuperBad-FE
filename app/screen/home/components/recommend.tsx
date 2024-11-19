@@ -20,6 +20,8 @@ export const Recommend = () => {
       <View style={styles.recommendStyle}>
         {ProductList?.map((item) => (
           <Product
+            id={item.id}
+            key={item.id}
             img={item.imageUrl}
             price={item.price}
             content={item.title}

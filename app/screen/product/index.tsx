@@ -31,6 +31,7 @@ export const Product = () => {
       <ScrollView>
         {ProductList?.map((item) => (
           <List
+            key={item.id}
             img={item.imageUrl}
             title={item.title}
             date={item.createdDate.slice(0, 10)}

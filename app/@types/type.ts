@@ -33,7 +33,7 @@ export interface Product {
 export interface PostProductType {
   title: string;
   content: string;
-  price: string;
+  price: number;
   category: string | undefined;
-  imageUri: File | undefined;
+  imageUri?: File | { uri: string };
 }

@@ -5,3 +5,4 @@ export { Product } from "./product/index";
 export { Registration } from "./registration/index";
 export { SuperChat } from "./chat/index";
 export { MyPage } from "./myPage/index";
+export {} from "./product/";

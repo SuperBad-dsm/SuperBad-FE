@@ -50,6 +50,15 @@ export default function MainNavigator() {
         }}
       />
       <Tab.Screen
+        name="상품상세"
+        component={_.}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
         name="홈"
         component={_.Home}
         options={{
