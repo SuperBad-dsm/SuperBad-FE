@@ -1,6 +1,6 @@
 import { path } from "@/constants";
 import { instance } from "@/utils/function/api/instance";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 
 interface userInfo {
   userId: string;
@@ -36,9 +36,8 @@ export const UserSimpleInfo = () => {
 };
 
 export const userDetailInfo = (userId: string) => {
-  return useQuery({
-    queryKey: ["detailUserInfo"],
-    queryFn: async () => {
+  return useMutation({
+    mutationFn: async () => {
       const { data } = await instance.get<userDetailInfo>(
         `${path.users}/${userId}`
       );

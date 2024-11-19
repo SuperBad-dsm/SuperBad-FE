@@ -196,6 +196,7 @@ import { useMutation } from "@tanstack/react-query";
 import { usePostProduct } from "@/apis/product";
 import { getToken } from "@/utils";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 export type PostProductType = {
   title: string;
@@ -223,6 +224,8 @@ export const Registration = () => {
     category: "",
     price: 0,
   });
+
+  const navigation = useNavigation();
 
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
   const { mutate: postProduct } = usePostProduct();
@@ -377,7 +380,7 @@ export const Registration = () => {
       <Pressable onPress={uploadImage} style={[styles.imgContainer]}>
         {imageUrls.length > 0 ? (
           <Image
-            source={{ uri: imageUrls[0].uri }} // Access 'uri' here
+            source={{ uri: imageUrls[0].uri }}
             style={{ width: "100%", height: "100%", borderRadius: 10 }}
           />
         ) : (
@@ -417,7 +420,9 @@ export const Registration = () => {
         placeholder="브랜드, 모델명, 상품 구매 시기, 하자 유무 등을 적어주시면 판매가 더욱 쉬워져요."
         multiLine={8}
       />
-      <Button onPress={handleSubmit}>상품등록</Button>
+      <Button onPress={() => navigation.navigate("상품" as never)}>
+        상품등록
+      </Button>
     </SafeAreaView>
   );
 };

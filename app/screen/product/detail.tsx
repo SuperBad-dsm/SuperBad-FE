@@ -6,17 +6,18 @@ import { Heart, HeartFill, LightningIcon, SlidePng } from "@/assets/icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import Button from "@/components/common/button";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
 import { instance } from "@/utils/function/api/instance";
 import { path } from "@/constants";
 import { Product } from "@/@types/type";
 import { useRoute } from "@react-navigation/native";
-import { RouteProp } from '@react-navigation/native';
-
+import { RouteProp } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { V, getEnumCategorYfwe, getEnumCategory } from "@/hooks";
 
 interface DetailProp {
-  id: number
+  id: number;
 }
 type DetailParam = {
   ProductDetail: {
@@ -24,41 +25,26 @@ type DetailParam = {
   };
 };
 
+enum Detail {}
+
 //type Navigation = NativeStackHeaderProps & DetailParams;
 
-export const ProductDetail = () => {
+export const ProductDetail = ({ route }) => {
   //const route = useRoute<RouteProp<DetailParam, 'ProductDetail'>>();
-    //const { id } = route.params;
+  //const { id } = route.params;
+
+  const navigation = useNavigation();
+  const { id } = route.params;
 
   const [isLike, setIsLike] = useState<boolean>(false);
 
-  const [error, setError] = useState<boolean>(false);
+  const { data: detailData } = useQuery({
+    queryKey: [path.products, id],
+    queryFn: () => instance.get(`${path.products}/${id}`),
+    select: (res) => res?.data,
+  });
 
-  const [data, setData] = useState<Product>();
-
-  const getDetailData = () => {    
-    return useMutation({
-      mutationFn: () => instance.get<Product>(`${path.products}/1`),
-      onError: (error) => {
-        console.log(error);
-      },
-      onSuccess: async (res) => {
-        setData(res.data);
-      },
-    });
-  };
-
-  const { mutate: detailFn } = useMutation<AxiosResponse, AxiosError>({
-    mutationFn: () => instance.get(`${path.products}/1`),
-    onError: (error) => {
-      setError(true);
-      console.log(error);
-    },
-    onSuccess: async (res) => {
-      const { token } = res.data;
-    }
-    
-  })
+  console.log(detailData);
 
   return (
     <View
@@ -68,7 +54,13 @@ export const ProductDetail = () => {
         justifyContent: "flex-start",
       }}
     >
-      <Image source={SlidePng}></Image>
+      {detailData?.imageUrl && (
+        <Image
+          source={{ uri: detailData.imageUrl }}
+          width={422}
+          height={430}
+        ></Image>
+      )}
       <View
         style={{
           flexDirection: "row",
@@ -101,7 +93,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            {data?.seller.nickname}
+            {detailData?.seller.nickname}
           </Text>
           <Text
             style={[
@@ -111,7 +103,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            {data?.seller.userId}
+            {detailData?.seller.userId}
           </Text>
         </View>
         <View
@@ -127,7 +119,7 @@ export const ProductDetail = () => {
             },
           ]}
         >
-          {data?.createdDate}
+          {detailData?.createdDate.slice(0, 10)}
         </Text>
       </View>
       <View
@@ -158,7 +150,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            {data?.title}
+            {detailData?.title}
           </Text>
           <Text
             style={[
@@ -169,12 +161,14 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            {data?.status}
+            {V(detailData?.status)}
           </Text>
         </View>
         <View
           style={{
             flexDirection: "row",
+            alignItems: "center",
+            height: 20,
           }}
         >
           <Text
@@ -185,18 +179,29 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            {data?.category}
+            {getEnumCategorYfwe(detailData?.category)}
           </Text>
-          <Text
-            style={[
-              font.body["16-regular"],
-              {
-                color: theme.color.GRAY[300],
-              },
-            ]}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginLeft: 10,
+            }}
           >
-            {data?.heartCount}
-          </Text>
+            <HeartFill width={25} height={25} Fill={theme.color.YELLOW} />
+            <Text
+              style={[
+                font.body["16-regular"],
+                {
+                  color: theme.color.GRAY[300],
+                  alignItems: "center",
+                  marginLeft: 4,
+                },
+              ]}
+            >
+              {detailData?.heartCount}
+            </Text>
+          </View>
         </View>
         <Text
           style={[
@@ -207,7 +212,7 @@ export const ProductDetail = () => {
             },
           ]}
         >
-          {data?.content}
+          {detailData?.content}
         </Text>
       </View>
       <View
@@ -254,7 +259,7 @@ export const ProductDetail = () => {
               },
             ]}
           >
-            {data?.price}원
+            {detailData?.price}원
           </Text>
           <Text
             style={[
@@ -273,7 +278,7 @@ export const ProductDetail = () => {
           }}
         ></View>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => navigation.navigate("슈퍼챗" as never)}
           style={[
             styles.container,
             {
@@ -286,7 +291,7 @@ export const ProductDetail = () => {
             },
           ]}
         >
-          <LightningIcon Fill="#000000" width={15} height={18} />
+          <LightningIcon Fill="#000000" width={20} height={20} />
           <Text
             style={[
               font.body["16-semibold"],

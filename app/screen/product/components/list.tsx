@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
 interface ListProp {
-  id: number,
+  id: number;
   img: string;
   title: string;
   date: string;
@@ -14,12 +14,13 @@ interface ListProp {
 }
 
 export default function List({ id, img, title, date, price }: ListProp) {
-    const navigation = useNavigation();
-
+  const navigation = useNavigation();
+  const path = ["상품상세", { id }] as never;
   return (
-    <TouchableOpacity 
-    onPress={() => navigation.navigate('상세보기' as never)}
-    style={[styles.container]}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate(...path)}
+      style={[styles.container]}
+    >
       <View style={{ gap: 15, flexDirection: "row" }}>
         <Image
           source={{ uri: img }}

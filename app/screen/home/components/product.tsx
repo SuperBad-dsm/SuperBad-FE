@@ -16,6 +16,7 @@ interface ProductProps {
 export default function Product({ img, price, content, id }: ProductProps) {
   const navigation = useNavigation();
   const path = ["상품상세", { id }] as never;
+  console.log(path);
   return (
     <TouchableOpacity
       style={styles.container}

@@ -13,6 +13,21 @@ export enum ProductEnum {
   무료나눔 = "FREE",
 }
 
+export enum Dwq {
+  CLOTHES = "의류",
+  GOODS = "굿즈",
+  ELECTRONICS = "가전제품",
+  FREE = "무료나눔",
+  HIGHEND = "명품",
+}
+
+export enum dwe {
+  ONSALES = "판매중",
+  RESERVATION = "예약중",
+  SOLDOUT = "판매완료",
+  available = "판매중",
+}
+
 export interface Product {
   id: number;
   title: string;

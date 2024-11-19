@@ -31,6 +31,7 @@ export const Product = () => {
       <ScrollView>
         {ProductList?.map((item) => (
           <List
+            id={item.id}
             key={item.id}
             img={item.imageUrl}
             title={item.title}
@@ -47,6 +48,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    backgroundColor: theme.color.backgroundblack,
+    backgroundColor: theme.color.black,
   },
 });

@@ -7,9 +7,24 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { UserSimpleInfo, userDetailInfo } from "@/apis/users";
 import Product from "./components/product";
 
+import { useEffect } from "react";
+
 export const MyPage = () => {
   const { data: myInfo } = UserSimpleInfo();
-  const { data: DetailData } = userDetailInfo(myInfo?.userId!);
+  const { mutate: DetailData, data: detailData } = userDetailInfo(
+    myInfo?.userId!
+  );
+
+  useEffect(() => {
+    if (myInfo?.userId) {
+      const timer = setTimeout(() => {
+        DetailData();
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [myInfo?.userId, DetailData]);
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -41,8 +56,9 @@ export const MyPage = () => {
           </Text>
           <ScrollView>
             <View style={styles.recommendStyle}>
-              {DetailData?.products?.map((item) => (
+              {detailData?.products?.map((item) => (
                 <Product
+                  id={item.id}
                   img={item.imageUrl}
                   price={item.price}
                   content={item.title}

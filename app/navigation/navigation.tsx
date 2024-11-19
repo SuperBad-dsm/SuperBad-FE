@@ -51,7 +51,7 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="상품상세"
-        component={_.}
+        component={_.ProductDetail}
         options={{
           tabBarButton: () => null,
           headerShown: false,
