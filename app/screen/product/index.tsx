@@ -6,11 +6,12 @@ import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import List from "./components/list";
 import { useGetProductList } from "@/apis/product";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Product = () => {
   const { data: ProductList } = useGetProductList();
   return (
-    <View style={[styles.container]}>
+    <SafeAreaView style={[styles.container]}>
       <Header />
       <SegmentedControl
         list={[
@@ -30,7 +31,7 @@ export const Product = () => {
       <ScrollView>
         {ProductList?.map((item) => (
           <List
-            id={item.id}
+            key={item.id}
             img={item.imageUrl}
             title={item.title}
             date={item.createdDate.slice(0, 10)}
@@ -38,7 +39,7 @@ export const Product = () => {
           />
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

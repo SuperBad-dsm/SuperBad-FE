@@ -7,7 +7,7 @@ export interface MenuType {
 }
 
 export enum ProductEnum {
-  옷 = "CLOTHES",
+  의류 = "CLOTHES",
   굿즈 = "GOODS",
   가전제품 = "ELECTRONICS",
   무료나눔 = "FREE",
@@ -28,4 +28,12 @@ export interface Product {
     nickname: string;
     password: string;
   };
+}
+
+export interface PostProductType {
+  title: string;
+  content: string;
+  price: number;
+  category: string | undefined;
+  imageUri?: File | { uri: string };
 }

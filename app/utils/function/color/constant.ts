@@ -140,7 +140,7 @@ export const font: fontType = {
       lineHeight: 14,
     },
     "12-regular": {
-      fontSize: 12,
+      fontSize: 10,
       fontWeight: "400",
       lineHeight: 14,
     },
