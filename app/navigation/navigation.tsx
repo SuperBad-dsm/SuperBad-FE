@@ -46,6 +46,16 @@ export default function MainNavigator() {
         }}
       />
       <Tab.Screen
+        name="상세보기"
+        component={_.ProductDetail}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+        initialParams={{ id: 1}}
+      />
+      <Tab.Screen
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -135,7 +145,7 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="MY"
-        component={_.ProductDetail}
+        component={_.Signin}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
